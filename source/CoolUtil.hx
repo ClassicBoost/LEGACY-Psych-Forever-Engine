@@ -5,7 +5,6 @@ import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
-import flixel.system.FlxSound;
 #if sys
 import sys.io.File;
 import sys.FileSystem;
@@ -20,19 +19,12 @@ class CoolUtil
 	public static var defaultDifficulties:Array<String> = [
 		'Easy',
 		'Normal',
-		'Hard'
+		'Hard',
 	];
 	public static var defaultDifficulty:String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
 
 	public static var difficulties:Array<String> = [];
 
-	inline public static function quantize(f:Float, snap:Float){
-		// changed so this actually works lol
-		var m:Float = Math.fround(f * snap);
-		trace(snap);
-		return (m / snap);
-	}
-	
 	public static function getDifficultyFilePath(num:Null<Int> = null)
 	{
 		if(num == null) num = PlayState.storyDifficulty;
@@ -124,11 +116,16 @@ class CoolUtil
 
 	//uhhhh does this even work at all? i'm starting to doubt
 	public static function precacheSound(sound:String, ?library:String = null):Void {
-		Paths.sound(sound, library);
+		precacheSoundFile(Paths.sound(sound, library));
 	}
 
 	public static function precacheMusic(sound:String, ?library:String = null):Void {
-		Paths.music(sound, library);
+		precacheSoundFile(Paths.music(sound, library));
+	}
+
+	private static function precacheSoundFile(file:Dynamic):Void {
+		if (Assets.exists(file, SOUND) || Assets.exists(file, MUSIC))
+			Assets.getSound(file, true);
 	}
 
 	public static function browserLoad(site:String) {

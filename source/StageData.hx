@@ -41,7 +41,7 @@ class StageData {
 					stage = 'spooky';
 				case 'pico' | 'blammed' | 'philly' | 'philly-nice':
 					stage = 'philly';
-				case 'milf' | 'satin-panties' | 'high':
+				case 'mil' | 'satin' | 'high':
 					stage = 'limo';
 				case 'cocoa' | 'eggnog':
 					stage = 'mall';
@@ -51,8 +51,6 @@ class StageData {
 					stage = 'school';
 				case 'thorns':
 					stage = 'schoolEvil';
-				case 'ugh' | 'guns' | 'stress':
-					stage = 'tank';
 				default:
 					stage = 'stage';
 			}

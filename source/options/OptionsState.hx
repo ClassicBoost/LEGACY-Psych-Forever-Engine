@@ -29,7 +29,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Preferences', 'Psych Forever Settings'];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Preferences', 'Psych Forever Settings', 'Modifiers'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -40,10 +40,14 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.NotesSubState());
 			case 'Controls':
 				openSubState(new options.ControlsSubState());
+			case 'Modifiers':
+				openSubState(new options.ModifiersSettingsSubState());
+			case 'Visuals and UI':
+				openSubState(new options.VisualsUISubState());
 			case 'Preferences':
-				openSubState(new options.PrefSettingsSubState());
+				openSubState(new options.GameplaySettingsSubState());
 			case 'Psych Forever Settings':
-				openSubState(new options.PFSubState());
+				openSubState(new options.ModdedSpecificSettingsSubState());
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
@@ -57,7 +61,10 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
-		FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath('funky')));
+		var changedMusic:Bool = false;
+		FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath('configurator')));
+
+		changedMusic = true;
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -107,7 +114,11 @@ class OptionsState extends MusicBeatState
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
-			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath('freakyMenu')));
+
+			if(ClientPrefs.menuMusic == 'None')
+				FlxG.sound.music.volume = 0;
+			else
+				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.menuMusic)));
 		}
 
 		if (controls.ACCEPT) {

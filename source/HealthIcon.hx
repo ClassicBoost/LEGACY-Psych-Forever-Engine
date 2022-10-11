@@ -4,7 +4,7 @@ import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
 
 using StringTools;
-// yeah I stole this from os engine, sorry.
+
 class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
@@ -37,31 +37,14 @@ class HealthIcon extends FlxSprite
 	private var iconOffsets:Array<Float> = [0, 0];
 	public function changeIcon(char:String) {
 		if(this.char != char) {
-			var name:String = 'icons/' + char;
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'iconsplus/icon-' + char; // Winning icons folder.
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
+			if (ClientPrefs.improvedicons == 'Advanced') {
+			var name:String = 'advancedicons/' + char;
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'advancedicons/icon-' + char; //Older versions of psych engine's support
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'advancedicons/icon-face'; //Prevents crash from missing icon
 			var file:Dynamic = Paths.image(name);
 
-			loadGraphic(file); //Load stupidly first for getting the file size
-			var width2 = width;
-			if (width/3 == height) {
-				loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); //Then load it fr // winning icons go br
-				iconOffsets[0] = (width - height) / 3;
-				iconOffsets[1] = (width - height) / 3;
-				iconOffsets[2] = (width - height) / 3;
-			} else {
-				loadGraphic(file, true, Math.floor(width / 2), Math.floor(height)); //Then load it fr // winning icons go br
-				iconOffsets[0] = (width - 150) / 2;
-				iconOffsets[1] = (width - 150) / 2;
-			}
-			
-			updateHitbox();
-			if (width2/3 == height) {
-				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			} else {
-				animation.add(char, [0, 1, 0], 0, false, isPlayer);
-			}
+			loadGraphic(file, true, 150, 150);
+			animation.add(char, [0, 1, 2, 3, 4], 0, false, isPlayer);
 			animation.play(char);
 			this.char = char;
 
@@ -70,14 +53,94 @@ class HealthIcon extends FlxSprite
 				antialiasing = false;
 			}
 		}
-	}
+		else if (ClientPrefs.improvedicons == 'Forever') {
+			if (ClientPrefs.icontype == 'Forever') {
+			var name:String = 'forevericons/forever/' + char;
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/forever/icon-' + char; //Older versions of psych engine's support
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/icon-' + char; //Prevents crash from missing icon
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/extra/icon-' + char; //Prevents crash from missing icon
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/icon-awesomface'; //Prevents crash from missing icon
+			var file:Dynamic = Paths.image(name);
 
-	override function updateHitbox()
-	{
-		super.updateHitbox();
-		offset.x = iconOffsets[0];
-		offset.y = iconOffsets[1];
+			loadGraphic(file, true, 150, 150);
+			animation.add(char, [1, 2, 0], 0, false, isPlayer);
+			animation.play(char);
+			this.char = char;
+
+			antialiasing = ClientPrefs.globalAntialiasing;
+			if(char.endsWith('-pixel')) {
+				antialiasing = false;
+			}
+			}
+			if (ClientPrefs.icontype == 'Mic\'d Up') {
+				var name:String = 'forevericons/micdup/' + char;
+				if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/micdup/icon-' + char; //Older versions of psych engine's support
+				if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/icon-' + char; //Prevents crash from missing icon
+				if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/extra/icon-' + char; //Prevents crash from missing icon
+				if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/icon-awesomface'; //Prevents crash from missing icon
+
+				var file:Dynamic = Paths.image(name);
+
+				loadGraphic(file, true, 150, 150);
+				animation.add(char, [1, 2, 0], 0, false, isPlayer);
+				animation.play(char);
+				this.char = char;
+	
+				antialiasing = ClientPrefs.globalAntialiasing;
+				if(char.endsWith('-pixel')) {
+					antialiasing = false;
+				}
+			}
+			else if (ClientPrefs.icontype == 'Vanilla') {
+			var name:String = 'forevericons/vanilla/' + char;
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/vanilla/icon-' + char; //Older versions of psych engine's support
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/icon-' + char; //Prevents crash from missing icon
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/extra/icon-' + char; //Prevents crash from missing icon
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'forevericons/icon-awesomface'; //Prevents crash from missing icon
+
+			var file:Dynamic = Paths.image(name);
+
+			loadGraphic(file, true, 150, 150);
+			animation.add(char, [1, 2, 0], 0, false, isPlayer);
+			animation.play(char);
+			this.char = char;
+
+			antialiasing = ClientPrefs.globalAntialiasing;
+			if(char.endsWith('-pixel')) {
+				antialiasing = false;
+			}
+			}
+		}
+		else {
+			var name:String = 'icons/' + char;
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
+			var file:Dynamic = Paths.image(name);
+
+			loadGraphic(file, true, 150, 150);
+			animation.add(char, [0, 1, 0], 0, false, isPlayer);
+			animation.play(char);
+			this.char = char;
+
+			antialiasing = ClientPrefs.globalAntialiasing;
+			if(char.endsWith('-pixel')) {
+				antialiasing = false;
+			}
+		}
+		}
 	}
+	
+//	public function updateHitbox() {
+//	if (ClientPrefs.iconbobiguess == 'Psych' || ClientPrefs.iconbobiguess == 'Psych + Turn' || ClientPrefs.iconbobiguess == 'Ping Pong') {
+/*	override function updateHitbox()
+		{
+			super.updateHitbox();
+			offset.x = iconOffsets[0];
+			offset.y = iconOffsets[1];
+		
+		}*/
+//	}
+//}
 
 	public function getCharacter():String {
 		return char;
