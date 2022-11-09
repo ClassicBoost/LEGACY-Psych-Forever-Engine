@@ -1,3 +1,7 @@
+# [Engine Definitive Edition! (REMAKE)](https://github.com/ClassicBoost/Psych-Forever-Definitive)
+# LEGACY Psych Forever Engine
+Engine that was used in several mods that me and my friends made, such as VS Ori, Mystery Funkin, VS Twisty, etc.<br>
+Psych Forever is a quality of life improvements of Psych Engine containing many aspects of Forever Engine as well new ones such as Winning Icons and Opponent Note Splash.
 # Friday Night Funkin' - Psych Engine
 Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 
