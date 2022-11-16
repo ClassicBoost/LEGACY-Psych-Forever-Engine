@@ -24,7 +24,7 @@ class ClientPrefs {
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = true;
-	public static var timeBarType:String = 'Time Left';
+	public static var timeBarType:String = 'Song Name';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
@@ -32,6 +32,7 @@ class ClientPrefs {
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Still';
 	public static var checkForUpdates:Bool = false; // no need of this yet
+	public static var simpleJudgements:Bool = false;
 
 	//modded specific
 	public static var skipintrosplash:Bool = false;
@@ -42,6 +43,8 @@ class ClientPrefs {
 	public static var forevericonbop:Bool = true;
 	public static var antimash:Bool = false;
 	public static var opponentsplashes:Bool = true;
+	public static var freeplayzoom:Bool = true; // ooh, I will show you what it does once I finish it.
+	public static var latedamage:Bool = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -120,6 +123,7 @@ class ClientPrefs {
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.imagesPersist = imagesPersist;
+		FlxG.save.data.simpleJudgements = simpleJudgements;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
 		FlxG.save.data.scoreZoom = scoreZoom;
@@ -149,6 +153,7 @@ class ClientPrefs {
 		FlxG.save.data.forevericonbop = forevericonbop;
 		FlxG.save.data.antimash = antimash;
 		FlxG.save.data.opponentsplashes = opponentsplashes;
+		FlxG.save.data.latedamage = latedamage;
 	
 		FlxG.save.flush();
 
@@ -258,6 +263,9 @@ class ClientPrefs {
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
 		}
+		if(FlxG.save.data.simpleJudgements != null) {
+			simpleJudgements = FlxG.save.data.simpleJudgements;
+		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
@@ -291,6 +299,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.opponentsplashes != null) {
 			opponentsplashes = FlxG.save.data.opponentsplashes;
+		}
+		if(FlxG.save.data.latedamage != null) {
+			latedamage = FlxG.save.data.latedamage;
 		}
 		
 		// flixel automatically saves your volume!

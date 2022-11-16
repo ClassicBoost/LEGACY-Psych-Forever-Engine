@@ -48,6 +48,13 @@ class PFSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
+
+		var option:Option = new Option('Late Damage',
+			'If checked, hitting notes late/early will hurt you.',
+			'latedamage',
+			'bool',
+			true);
+		addOption(option);
 	
 	/*	var option:Option = new Option('Anti-Mash',
 			"If enabled, mashing will make you miss.",

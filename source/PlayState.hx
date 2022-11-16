@@ -209,6 +209,7 @@ class PlayState extends MusicBeatState
 	public var creditsWatermark:FlxText;
 	private var antimashshitlol = false;
 	public var sickperfects:Int = 0;
+	private var overridemiss:String = '';
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
@@ -288,6 +289,15 @@ class PlayState extends MusicBeatState
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
 	#end
+
+	// stores the last judgement object
+	public static var lastRating:FlxSprite;
+	// stores the last combo sprite object
+	public static var lastCombo:FlxSprite;
+	// stores the last combo score objects in an array
+	public static var lastScore:Array<FlxSprite> = [];
+
+	public static var lateSimple:FlxSprite;
 
 	//Achievement shit
 	var keysPressed:Array<Bool> = [];
@@ -1016,7 +1026,7 @@ class PlayState extends MusicBeatState
 
 		if(ClientPrefs.timeBarType == 'Song Name')
 		{
-			timeTxt.text = SONG.song;
+			timeTxt.text = '- ${SONG.song} -';
 		}
 		updateTime = showTime;
 
@@ -1235,13 +1245,15 @@ class PlayState extends MusicBeatState
 			creditsWatermark.cameras = [camHUD];
 		}
 
-		engineBar = new FlxText(0, FlxG.height - 30, 0, "Psych Forever BETA v" + MainMenuState.psychforeverVersion + " (PE v" + MainMenuState.psychEngineVersion + ")", 16);
+		var engineDisplay:String = '${(isPixelStage == true ? "v" + MainMenuState.psychforeverVersion : isPixelStage == false ? "PSYCH FOREVER LEGACY v" + MainMenuState.psychforeverVersion + " (PE v" + MainMenuState.psychEngineVersion + ")" : "")}';
+
+		engineBar = new FlxText(0, 0, 0, engineDisplay); // make it go on the top right, like in Forever Engine 0.3.1
 		engineBar.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		engineBar.updateHitbox();
 		engineBar.x = FlxG.width - engineBar.width - 5;
 		engineBar.visible = ClientPrefs.enginewatermarks;
 		engineBar.cameras = [camHUD];
-		engineBar.scrollFactor.set();
+		engineBar.setPosition(FlxG.width - (engineBar.width + 5), 5);
 		add(engineBar);
 
 		strumLineNotes.cameras = [camHUD];
@@ -1370,7 +1382,7 @@ class PlayState extends MusicBeatState
 		{
 			startCountdown();
 		}
-		RecalculateRating();
+		RecalculateRating(); // make sure it updates
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
 		if(ClientPrefs.hitsoundVolume > 0) precacheList.set('hitsound', 'sound');
@@ -2222,13 +2234,10 @@ class PlayState extends MusicBeatState
 
 	public function updateScore(miss:Bool = false)
 	{
-		if (songScore == 0 && songMisses == 0)
-		scoreTxt.text = 'Score: 0 - Accuracy: 0% - Combo Breaks: 0 (0) - Rank: F';
-		else
 		scoreTxt.text = 'Score: ' + songScore
-		+ ' - Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%$ratingFC'
-		+ ' - Combo Breaks: ' + songMisses + ' (' + (songMisses + shits) + ')'
-		+ ' - Rank: $ratingName';
+		+ ' • Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%$ratingFC'
+		+ (ClientPrefs.latedamage == false ? ' • Combo Breaks: $songMisses (${songMisses + shits})' : ClientPrefs.latedamage == true ? ' • Combo Breaks: $songMisses' : "")
+		+ ' • Rank: $ratingName';
 	}
 
 	public function setSongTime(time:Float)
@@ -3984,6 +3993,7 @@ class PlayState extends MusicBeatState
 	public var showCombo:Bool = false;
 	public var showComboNum:Bool = true;
 	public var showRating:Bool = true;
+	public var lateshit:FlxSprite;
 
 	private function popUpScore(note:Note = null):Void
 	{
@@ -4002,6 +4012,7 @@ class PlayState extends MusicBeatState
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
+		var daTiming:String = "";
 
 		//tryna do MS based judgment due to popular demand
 		var daRating:Rating = Conductor.judgeNote(note, noteDiff);
@@ -4011,6 +4022,32 @@ class PlayState extends MusicBeatState
 		note.ratingMod = daRating.ratingMod;
 		if(!note.ratingDisabled) daRating.increase();
 		note.rating = daRating.name;
+
+		if (daRating.name == 'sick') {
+		}
+		if (daRating.name == 'good') {
+			score = 200;
+		}
+		if (daRating.name == 'bad') {
+			score = 100;
+			if (ClientPrefs.latedamage)
+			health -= 0.065;
+		}
+		if (daRating.name == 'shit') {
+			score = 50;
+			if (ClientPrefs.latedamage) {
+			overridemiss = 'miss'; // forcefully make bf miss if you get a shit with late damage on.
+			score = -300;
+			songMisses++;
+			combo = 0;
+			health -= 0.15;
+			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.3, 0.5));
+			}
+		}
+		else {
+			if (ClientPrefs.latedamage)
+			overridemiss = '';
+		}
 
 		if(ClientPrefs.scoreZoom && !cpuControlled)
 			{
@@ -4029,6 +4066,14 @@ class PlayState extends MusicBeatState
 		// if you're wondering how the gold sicks works it's basically
 		// just changes the image, just like how pixel notes works.
 		// it's at line where the ratings, combo, and combo number are.
+
+		// this is kinda in beta, so it may display even if you still score a sick.
+	/*	if (noteDiff > Conductor.safeZoneOffset * 0.1)
+			daTiming = "early";
+		else if (noteDiff < Conductor.safeZoneOffset * -0.1)
+			daTiming = "late";
+		else
+			daTiming = "goner"; // prevent game crashes*/
 
 		if(daRating.noteSplash) // this is easier to use
 		{
@@ -4073,6 +4118,18 @@ class PlayState extends MusicBeatState
 		rating.x += ClientPrefs.comboOffset[0];
 		rating.y -= ClientPrefs.comboOffset[1];
 
+	/*	lateshit.loadGraphic(Paths.image(daTiming));
+		lateshit.cameras = [camHUD];
+		lateshit.screenCenter();
+		lateshit.x = coolText.x - 40;
+		lateshit.y -= 60;
+		lateshit.acceleration.y = 550;
+		lateshit.velocity.y -= FlxG.random.int(140, 175);
+		lateshit.velocity.x -= FlxG.random.int(0, 10);
+		lateshit.visible = (!ClientPrefs.hideHud && showRating);
+		lateshit.x += ClientPrefs.comboOffset[0];
+		lateshit.y -= ClientPrefs.comboOffset[1];*/
+
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + (allSicks == true ? 'golden/' : allSicks == false ? '' : "") + 'combo' + pixelShitPart2));
 		comboSpr.cameras = [camHUD];
 		comboSpr.screenCenter();
@@ -4087,6 +4144,24 @@ class PlayState extends MusicBeatState
 
 		insert(members.indexOf(strumLineNotes), rating);
 
+		if (daRating.name != 'sick') insert(members.indexOf(strumLineNotes), lateshit);
+
+		if (ClientPrefs.simpleJudgements)
+		{
+			if (lastRating != null) lastRating.kill();
+			lastRating = rating;
+		}
+		if (ClientPrefs.simpleJudgements)
+		{
+			if (lastCombo != null) lastCombo.kill();
+			lastCombo = comboSpr;
+		}
+		if (ClientPrefs.simpleJudgements)
+		{
+			if (lateSimple != null) lateSimple.kill();
+			lateSimple = lateshit;
+		}
+
 		if (!PlayState.isPixelStage)
 		{
 			rating.setGraphicSize(Std.int(rating.width * 0.7));
@@ -4099,9 +4174,18 @@ class PlayState extends MusicBeatState
 			rating.setGraphicSize(Std.int(rating.width * daPixelZoom * 0.85));
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * daPixelZoom * 0.85));
 		}
+		if (lastScore != null)
+		{
+			while (lastScore.length > 0)
+			{
+				lastScore[0].kill();
+				lastScore.remove(lastScore[0]);
+			}
+		}
 
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
+	//	lateshit.updateHitbox();
 
 		var seperatedScore:Array<Int> = [];
 
@@ -4128,6 +4212,9 @@ class PlayState extends MusicBeatState
 
 			numScore.x += ClientPrefs.comboOffset[2];
 			numScore.y -= ClientPrefs.comboOffset[3];
+
+			if (ClientPrefs.simpleJudgements)
+				lastScore.push(numScore);
 
 			if (!PlayState.isPixelStage)
 			{
@@ -4173,6 +4260,10 @@ class PlayState extends MusicBeatState
 			startDelay: Conductor.crochet * 0.001
 		});
 
+	//	FlxTween.tween(lateshit, {alpha: 0}, 0.2, {
+	//		startDelay: Conductor.crochet * 0.001
+	//	});
+
 		FlxTween.tween(comboSpr, {alpha: 0}, 0.2, {
 			onComplete: function(tween:FlxTween)
 			{
@@ -4180,6 +4271,7 @@ class PlayState extends MusicBeatState
 				comboSpr.destroy();
 
 				rating.destroy();
+			//	lateshit.destroy();
 			},
 			startDelay: Conductor.crochet * 0.002
 		});
@@ -4603,7 +4695,7 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					boyfriend.playAnim(animToPlay + note.animSuffix, true);
+					boyfriend.playAnim(animToPlay + note.animSuffix + overridemiss, true);
 					boyfriend.holdTimer = 0;
 				}
 
@@ -5101,9 +5193,9 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public var ratingName:String = '?';
+	public var ratingName:String = 'F';
 	public var ratingPercent:Float;
-	public var ratingFC:String;
+	public var ratingFC:String = '';
 	public function RecalculateRating(badHit:Bool = false) {
 		setOnLuas('score', songScore);
 		setOnLuas('misses', songMisses);
@@ -5115,7 +5207,7 @@ class PlayState extends MusicBeatState
 		if(ret != FunkinLua.Function_Stop)
 		{
 			if(totalPlayed < 1) //Prevent divide by 0
-				ratingName = '?';
+				ratingName = 'F';
 			else
 			{
 				// Rating Percent

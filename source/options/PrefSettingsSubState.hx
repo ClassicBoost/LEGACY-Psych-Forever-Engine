@@ -129,6 +129,13 @@ class PrefSettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
+
+		var option:Option = new Option('Simple Judgements',
+			"If checked, only one judgement will display at a time.",
+			'simpleJudgements',
+			'bool',
+			false);
+		addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',
