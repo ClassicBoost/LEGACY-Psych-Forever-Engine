@@ -1,0 +1,7 @@
+{
+	"name": "VS Wotuver",
+	"description": "oh no",
+	"restart":false,
+	"runsGlobally": false,
+	"color": [170, 0, 255]
+}

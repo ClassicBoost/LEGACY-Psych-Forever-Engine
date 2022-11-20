@@ -1015,13 +1015,13 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
-		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
+		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled' && !ClientPrefs.hideTimeBG);
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
-		timeTxt.visible = showTime;
+		timeTxt.visible = ClientPrefs.timeBarType != 'Disabled';
 		if(ClientPrefs.downScroll) timeTxt.y = FlxG.height - 44;
 
 		if(ClientPrefs.timeBarType == 'Song Name')
@@ -5032,14 +5032,38 @@ class PlayState extends MusicBeatState
 		iconP2.scale.set(1.2, 1.2);
 
 		if (ClientPrefs.forevericonbop) {
-		if (curBeat % 2 == 0) {
-			FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-			FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-		}
-		else {
-			FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-			FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-		}
+			if (!ClientPrefs.newiconbop) {
+				if (curBeat % 2 == 0) {
+					FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				}
+				else {
+					FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				}
+			}
+			else {
+			if (curBeat % 2 == 0) {
+				if (health >= 0.4) {
+				FlxTween.cancelTweensOf(iconP1);
+				FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 500 * gfSpeed, {ease: FlxEase.quadOut});
+				}
+				if (health <= 1.6) {
+				FlxTween.cancelTweensOf(iconP2);
+				FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 500 * gfSpeed, {ease: FlxEase.quadOut});
+				}
+			}
+			else {
+				if (health >= 0.4) {
+				FlxTween.cancelTweensOf(iconP1);
+				FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 500 * gfSpeed, {ease: FlxEase.quadOut});
+				}
+				if (health <= 1.6) {
+				FlxTween.cancelTweensOf(iconP2);
+				FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 500 * gfSpeed, {ease: FlxEase.quadOut});
+				}
+			}
+			}
 		}
 
 		iconP1.updateHitbox();
@@ -5279,6 +5303,16 @@ class PlayState extends MusicBeatState
 									if(achievementName == 'week6_nomiss') unlock = true;
 								case 'week7':
 									if(achievementName == 'week7_nomiss') unlock = true;
+							}
+						}
+					case 'test_nomiss':
+						if(songMisses < 1 && !changedDifficulty && !usedPractice)
+						{
+							var weekName:String = WeekData.getWeekFileName();
+							switch(weekName)
+							{
+								case 'AWESOME':
+									if(achievementName == 'test_nomiss') unlock = true;
 							}
 						}
 					case 'ur_bad':

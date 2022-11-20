@@ -72,9 +72,23 @@ class PFSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('New Icon Bop',
+			"If checked, it will use a new icon bop!\n(Very unfinished)",
+			'newiconbop',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Opponent Note Splash',
 			"If checked, every time the opponent hits a note they will also have note splashes.\n(Reccomended Off)",
 			'opponentsplashes',
+			'bool',
+			true);
+		addOption(option);
+
+		var option:Option = new Option('Hide Time BG',
+			"If checked, the background for the timer is hidden.",
+			'hideTimeBG',
 			'bool',
 			true);
 		addOption(option);
@@ -92,6 +106,22 @@ class PFSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
+
+		var option:Option = new Option('Autoplay Freeplay Songs',
+			"If checked, songs will automatically play without needing to press space.",
+			'autoplaySongs',
+			'bool',
+			true);
+		addOption(option);
+
+		var option:Option = new Option('Mute Freeplay Voices',
+			"If checked, when music plays in freeplay it disables the vocals\n(not every song has a vocal track!).",
+			'mutefreeplayvocals',
+			'bool',
+			true);
+		addOption(option);
+
+
 
 	/*	var option:Option = new Option('Skip Splash',
 			'If checked, opening the game will skip the splash.',

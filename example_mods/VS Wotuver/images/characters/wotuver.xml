@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="wotuver.png">
+<SubTexture name="idle0000" x="0" y="0" width="527" height="585" frameX="0" frameY="0" frameWidth="527" frameHeight="585" />
+</TextureAtlas>

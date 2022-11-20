@@ -325,6 +325,7 @@ class FreeplayState extends MusicBeatState
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
+			vocals.volume = 0;
 		}
 
 		if(ctrl)
@@ -332,7 +333,7 @@ class FreeplayState extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		else if(space)
+		if(space || ClientPrefs.autoplaySongs)
 		{
 			if(instPlaying != curSelected)
 			{
@@ -352,13 +353,14 @@ class FreeplayState extends MusicBeatState
 				vocals.play();
 				vocals.persist = true;
 				vocals.looped = true;
-				vocals.volume = 0.7;
+				if (!ClientPrefs.mutefreeplayvocals) vocals.volume = 0.7;
+				else vocals.volume = 0;
 				instPlaying = curSelected;
 				#end
 			}
 		}
 
-		else if (accepted)
+		if (accepted)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);

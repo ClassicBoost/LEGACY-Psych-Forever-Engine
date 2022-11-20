@@ -43,8 +43,12 @@ class ClientPrefs {
 	public static var forevericonbop:Bool = true;
 	public static var antimash:Bool = false;
 	public static var opponentsplashes:Bool = true;
+	public static var newiconbop:Bool = true;
 	public static var freeplayzoom:Bool = true; // ooh, I will show you what it does once I finish it.
 	public static var latedamage:Bool = true;
+	public static var autoplaySongs:Bool = true;
+	public static var mutefreeplayvocals:Bool = true;
+	public static var hideTimeBG:Bool = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -154,6 +158,10 @@ class ClientPrefs {
 		FlxG.save.data.antimash = antimash;
 		FlxG.save.data.opponentsplashes = opponentsplashes;
 		FlxG.save.data.latedamage = latedamage;
+		FlxG.save.data.newiconbop = newiconbop;
+		FlxG.save.data.autoplaySongs = autoplaySongs;
+		FlxG.save.data.hideTimeBG = hideTimeBG;
+		FlxG.save.data.mutefreeplayvocals = mutefreeplayvocals;
 	
 		FlxG.save.flush();
 
@@ -302,6 +310,18 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.latedamage != null) {
 			latedamage = FlxG.save.data.latedamage;
+		}
+		if(FlxG.save.data.hideTimeBG != null) {
+			hideTimeBG = FlxG.save.data.hideTimeBG;
+		}
+		if(FlxG.save.data.newiconbop != null) {
+			newiconbop = FlxG.save.data.newiconbop;
+		}
+		if(FlxG.save.data.autoplaySongs != null) {
+			autoplaySongs = FlxG.save.data.autoplaySongs;
+		}
+		if(FlxG.save.data.mutefreeplayvocals != null) {
+			mutefreeplayvocals = FlxG.save.data.mutefreeplayvocals;
 		}
 		
 		// flixel automatically saves your volume!

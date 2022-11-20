@@ -1,0 +1,7 @@
+{
+	"name": "Base FNF",
+	"description": "Vanilla FNF basically",
+	"restart":false,
+	"runsGlobally": true,
+	"color": [170, 0, 255]
+}

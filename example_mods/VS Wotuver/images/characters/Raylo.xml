@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="LEO.png">
+<SubTexture name="leo idle0000" x="900" y="0" width="321" height="421" frameX="-1" frameY="-5" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo idle0001" x="900" y="0" width="321" height="421" frameX="-1" frameY="-5" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo idle0002" x="309" y="1262" width="322" height="414" frameX="0" frameY="-12" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo idle0003" x="309" y="1262" width="322" height="414" frameX="0" frameY="-12" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo idle0004" x="1206" y="844" width="321" height="415" frameX="-1" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo idle0005" x="1206" y="844" width="321" height="415" frameX="-1" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo idle0006" x="291" y="844" width="322" height="417" frameX="0" frameY="-9" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo idle0007" x="291" y="844" width="322" height="417" frameX="0" frameY="-9" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left0000" x="0" y="0" width="297" height="422" frameX="-5" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left0001" x="0" y="0" width="297" height="422" frameX="-5" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left0002" x="297" y="0" width="291" height="422" frameX="-8" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left0003" x="297" y="0" width="291" height="422" frameX="-8" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left0004" x="900" y="421" width="292" height="420" frameX="-7" frameY="-6" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left0005" x="900" y="421" width="292" height="420" frameX="-7" frameY="-6" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right0000" x="1559" y="0" width="312" height="415" frameX="-26" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right0001" x="1559" y="0" width="312" height="415" frameX="-26" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right0002" x="928" y="1262" width="312" height="412" frameX="-26" frameY="-14" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right0003" x="928" y="1262" width="312" height="412" frameX="-26" frameY="-14" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right0004" x="1240" y="1262" width="308" height="412" frameX="-29" frameY="-14" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right0005" x="1240" y="1262" width="308" height="412" frameX="-29" frameY="-14" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up0000" x="1559" y="415" width="309" height="415" frameX="-13" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up0001" x="1559" y="415" width="309" height="415" frameX="-13" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up0002" x="613" y="844" width="299" height="416" frameX="-15" frameY="-10" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up0003" x="613" y="844" width="299" height="416" frameX="-15" frameY="-10" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up0004" x="1559" y="830" width="305" height="415" frameX="-17" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up0005" x="1559" y="830" width="305" height="415" frameX="-17" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo down0000" x="1871" y="0" width="324" height="411" frameX="-3" frameY="-15" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo down0001" x="1871" y="0" width="324" height="411" frameX="-3" frameY="-15" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo down0002" x="1871" y="411" width="318" height="411" frameX="-4" frameY="-15" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo down0003" x="1871" y="411" width="318" height="411" frameX="-4" frameY="-15" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo down0004" x="0" y="1677" width="325" height="411" frameX="-7" frameY="-15" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo down0005" x="0" y="1677" width="325" height="411" frameX="-7" frameY="-15" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo HEY0000" x="1221" y="0" width="338" height="419" frameX="-1" frameY="-7" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo HEY0001" x="1221" y="0" width="338" height="419" frameX="-1" frameY="-7" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo HEY0002" x="1221" y="419" width="338" height="419" frameX="-1" frameY="-7" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo HEY0003" x="1221" y="419" width="338" height="419" frameX="-1" frameY="-7" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up miss0000" x="0" y="1262" width="309" height="415" frameX="-13" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up miss0001" x="0" y="1262" width="309" height="415" frameX="-13" frameY="-11" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right miss0000" x="588" y="0" width="312" height="422" frameX="-26" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo right miss0001" x="588" y="0" width="312" height="422" frameX="-26" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left miss0000" x="0" y="422" width="297" height="422" frameX="-5" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo left miss0001" x="0" y="422" width="297" height="422" frameX="-5" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up miss0002" x="297" y="422" width="324" height="422" frameX="-3" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo up miss0003" x="297" y="422" width="324" height="422" frameX="-3" frameY="-4" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo scared0000" x="912" y="844" width="294" height="416" frameX="-4" frameY="-10" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo scared0001" x="1548" y="1262" width="292" height="412" frameX="-8" frameY="-14" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo scared0002" x="631" y="1262" width="297" height="413" frameX="-7" frameY="-13" frameWidth="329" frameHeight="416" />
+<SubTexture name="leo scared0003" x="0" y="844" width="291" height="418" frameX="-6" frameY="-8" frameWidth="329" frameHeight="416" />
+</TextureAtlas>

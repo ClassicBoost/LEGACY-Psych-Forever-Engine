@@ -1,0 +1,20 @@
+{
+	"songs": [
+		["High LOFI", "mom", [252, 150, 215]]
+	],
+	
+	"weekCharacters": [
+		"mom",
+		"bf",
+		"gf"
+	],
+	"weekBackground": "limo",
+
+	"storyName": "MOMMY MUST MURDER",
+	"weekBefore": "week4",
+	"weekName": "Week 4 LOFI",
+	"startUnlocked": true,
+	"difficulties": "Normal",
+	"hideStoryMode": true,
+	"hideFreeplay": false
+}

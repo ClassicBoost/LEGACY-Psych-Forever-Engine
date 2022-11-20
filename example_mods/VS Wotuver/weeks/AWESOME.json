@@ -1,0 +1,20 @@
+{
+	"songs": [
+		["WHATEVER", "wotuver", [146, 113, 253]]
+	],
+
+	"weekCharacters": [
+		"dad",
+		"bf",
+		"gf"
+	],
+	"weekBackground": "stage",
+
+	"storyName": "A VERY NORMAL SONG I SWEAR!!!!!!!",
+	"weekBefore": "tutorial",
+	"weekName": "Week 1",
+	"startUnlocked": true,
+	"difficulties": "Normal",
+	"hideStoryMode": false,
+	"hideFreeplay": false
+}
