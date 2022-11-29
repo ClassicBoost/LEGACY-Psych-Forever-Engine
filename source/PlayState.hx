@@ -211,6 +211,8 @@ class PlayState extends MusicBeatState
 	public var sickperfects:Int = 0;
 	private var overridemiss:String = '';
 
+	private var daTiming:String = '-early';
+
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
 
@@ -1245,16 +1247,19 @@ class PlayState extends MusicBeatState
 			creditsWatermark.cameras = [camHUD];
 		}
 
-		var engineDisplay:String = '${(isPixelStage == true ? "v" + MainMenuState.psychforeverVersion : isPixelStage == false ? "PSYCH FOREVER LEGACY v" + MainMenuState.psychforeverVersion + " (PE v" + MainMenuState.psychEngineVersion + ")" : "")}';
+		var engineDisplay:String = '${(isPixelStage == true ? "v" + MainMenuState.psychforeverVersion : isPixelStage == false ? "PSYCH FOREVER ENGINE LEGACY v" + MainMenuState.psychforeverVersion + " (PE v" + MainMenuState.psychEngineVersion + ")" : "")}';
 
 		engineBar = new FlxText(0, 0, 0, engineDisplay); // make it go on the top right, like in Forever Engine 0.3.1
-		engineBar.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		engineBar.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		engineBar.updateHitbox();
 		engineBar.x = FlxG.width - engineBar.width - 5;
 		engineBar.visible = ClientPrefs.enginewatermarks;
 		engineBar.cameras = [camHUD];
+		engineBar.borderSize = 2;
 		engineBar.setPosition(FlxG.width - (engineBar.width + 5), 5);
 		add(engineBar);
+
+		if (ClientPrefs.forceZoom && Paths.formatToSongPath(SONG.song) != 'tutorial') camZooming = true;
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -2962,12 +2967,22 @@ class PlayState extends MusicBeatState
 
 		judgementCounter.text = 'Sicks: ${sicks} (${sickrows})\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\n';
 
+		if (ClientPrefs.newiconbop && ClientPrefs.forevericonbop) {
+			iconP1.alpha = healthBar.alpha;
+			iconP2.alpha = healthBar.alpha;
+		}
+
+		if (ClientPrefs.forevericonbop) {
 		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 		iconP1.scale.set(mult, mult);
-		iconP1.updateHitbox();
-
 		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 		iconP2.scale.set(mult, mult);
+		} else {
+		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
+		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
+		}
+
+		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
 		var iconOffset:Int = 26;
@@ -4067,13 +4082,10 @@ class PlayState extends MusicBeatState
 		// just changes the image, just like how pixel notes works.
 		// it's at line where the ratings, combo, and combo number are.
 
-		// this is kinda in beta, so it may display even if you still score a sick.
-	/*	if (noteDiff > Conductor.safeZoneOffset * 0.1)
-			daTiming = "early";
-		else if (noteDiff < Conductor.safeZoneOffset * -0.1)
-			daTiming = "late";
+		if (note.strumTime < Conductor.songPosition)
+			daTiming = "-late";
 		else
-			daTiming = "goner"; // prevent game crashes*/
+			daTiming = "-early";
 
 		if(daRating.noteSplash) // this is easier to use
 		{
@@ -4105,8 +4117,7 @@ class PlayState extends MusicBeatState
 			pixelShitPart2 = '-pixel';
 		}
 
-		// wait this will still display as a golden sick even if you hit a good? idk.
-		rating.loadGraphic(Paths.image(pixelShitPart1 + (allSicks == true ? 'sick-perfect' : allSicks == false ? daRating.image : "") + pixelShitPart2));
+		rating.loadGraphic(Paths.image('judgements/' + pixelShitPart1 + (allSicks == true ? 'sick-perfect' : allSicks == false ? daRating.image : "") + daTiming + pixelShitPart2));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
 		rating.x = coolText.x - 40;

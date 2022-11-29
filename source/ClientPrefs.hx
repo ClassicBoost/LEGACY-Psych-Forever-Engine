@@ -48,6 +48,7 @@ class ClientPrefs {
 	public static var latedamage:Bool = true;
 	public static var autoplaySongs:Bool = true;
 	public static var mutefreeplayvocals:Bool = true;
+	public static var forceZoom:Bool = true;
 	public static var hideTimeBG:Bool = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
@@ -161,6 +162,7 @@ class ClientPrefs {
 		FlxG.save.data.newiconbop = newiconbop;
 		FlxG.save.data.autoplaySongs = autoplaySongs;
 		FlxG.save.data.hideTimeBG = hideTimeBG;
+		FlxG.save.data.forceZoom = forceZoom;
 		FlxG.save.data.mutefreeplayvocals = mutefreeplayvocals;
 	
 		FlxG.save.flush();
@@ -322,6 +324,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.mutefreeplayvocals != null) {
 			mutefreeplayvocals = FlxG.save.data.mutefreeplayvocals;
+		}
+		if(FlxG.save.data.forceZoom != null) {
+			forceZoom = FlxG.save.data.forceZoom;
 		}
 		
 		// flixel automatically saves your volume!

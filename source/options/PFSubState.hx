@@ -65,15 +65,15 @@ class PFSubState extends BaseOptionsMenu
 
 		// I'm probably just dumb or something but this doesn't work for some reason
 
-		var option:Option = new Option('Icon Turn',
-			"If checked, the icons will turn on beat.",
+		var option:Option = new Option('Better Icon Bop',
+			"If checked, the icons will turn on beat and beat smoothly.",
 			'forevericonbop',
 			'bool',
 			true);
 		addOption(option);
 
 		var option:Option = new Option('New Icon Bop',
-			"If checked, it will use a new icon bop!\n(Very unfinished)",
+			"If checked, it will use a new icon bop!",
 			'newiconbop',
 			'bool',
 			true);
@@ -89,6 +89,13 @@ class PFSubState extends BaseOptionsMenu
 		var option:Option = new Option('Hide Time BG',
 			"If checked, the background for the timer is hidden.",
 			'hideTimeBG',
+			'bool',
+			true);
+		addOption(option);
+
+		var option:Option = new Option('Force Camera Zoom',
+			"If checked, the camera will zoom without the opponent needing to hit a note.",
+			'forceZoom',
 			'bool',
 			true);
 		addOption(option);

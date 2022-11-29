@@ -325,7 +325,7 @@ class FreeplayState extends MusicBeatState
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
-			vocals.volume = 0;
+			destroyFreeplayVocals();
 		}
 
 		if(ctrl)
@@ -360,7 +360,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if (accepted)
+		if (accepted && !space)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
